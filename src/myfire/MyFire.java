@@ -21,10 +21,10 @@ public class MyFire {
      */
     private static JFrame frame;
     private static final String TITLE = "My Fire";
-    private static final int WIDTH = 800;
-    private static final int HEIGHT = 400;
+    private static final int WIDTH = 1000;
+    private static final int HEIGHT = 800;
     private static final Dimension SIZE = new Dimension(WIDTH, HEIGHT);
-    
+
     //Para pruebas
     static Scanner sc = new Scanner(System.in);
 
@@ -35,17 +35,16 @@ public class MyFire {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setBackground(Color.BLACK);
 
-        Viewer viewer = new Viewer(SIZE);
-        viewer.setRate(50);
+        Flame flame1 = new Flame(WIDTH, HEIGHT);
+        Viewer viewer = new Viewer(SIZE, 500, flame1);
 
         frame.add(viewer.getCanvas());
 
         frame.pack();
         frame.setVisible(true);
 
+        flame1.run();
         viewer.run();
-        sc.nextLine();
-        viewer.setStoped(true);
     }
 
     public void setFlamePalette() {
