@@ -21,8 +21,8 @@ public class MyFire {
      */
     private static JFrame frame;
     private static final String TITLE = "My Fire";
-    private static final int WIDTH = 1000;
-    private static final int HEIGHT = 800;
+    private static final int WIDTH = 1200;
+    private static final int HEIGHT = 400;
     private static final Dimension SIZE = new Dimension(WIDTH, HEIGHT);
 
     //Para pruebas

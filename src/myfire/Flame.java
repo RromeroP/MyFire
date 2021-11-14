@@ -79,12 +79,12 @@ public class Flame extends Thread {
         for (int pixel = 0, row = 0, col = 0;
                 pixel + 3 < this.buffer.length; pixel += pixelLength) {
 
-                //Aqui iria la paleta de colores
-                buffer[pixel] = (byte) 255; // alpha
-                buffer[pixel + 1] = (byte) 0; // blue
-                buffer[pixel + 2] = (byte) 0; // green
-                buffer[pixel + 3] = (byte) temperature[col][row]; // red
-            
+            //Aqui iria la paleta de colores
+            buffer[pixel] = (byte) 255; // alpha
+            buffer[pixel + 1] = (byte) 0; // blue
+            buffer[pixel + 2] = (byte) 0; // green
+            buffer[pixel + 3] = (byte) temperature[col][row]; // red
+
             //Usamos esto para encontrar las colummnas y lines en el array
             col++;
             if (col == this.WIDTH) {
@@ -105,11 +105,11 @@ public class Flame extends Thread {
                 pixel + 3 < this.buffer.length; pixel += pixelLength) {
 
             //El -40 es necesario o nos salimos de la ventana
-            if (row == this.HEIGHT - 40) {
+            if (row == this.HEIGHT - 39) {
 
                 int random = rand.nextInt(100);
 
-                if (random < 3) {
+                if (random < 50) {
                     temperature[col][row] = 255;
 
                     //Aqui iria la paleta de colores
@@ -134,29 +134,30 @@ public class Flame extends Thread {
 
         int up;
         int left;
-        int middle;
         int right;
         int down;
-        int cooling = 0;
+        int c_rand = 2;
         int[][] temp = new int[temperature.length][temperature[0].length];
 
         for (int i = 1; i < temperature.length - 1; i++) {
             for (int j = 1; j < temperature[0].length - 1; j++) {
                 up = temperature[i - 1][j];
                 left = temperature[i][j - 1];
-                middle = temperature[i][j];
                 right = temperature[i][j + 1];
                 down = temperature[i + 1][j];
 
-                int avg = (up + left + middle + right + down) / 5;
+                int avg = (up + left + right + down) / 4;
 
+                
+                int cooling = rand.nextInt(c_rand);
+                
                 avg -= cooling;
 
                 if (avg < 0) {
                     avg = 0;
                 }
 
-                temp[i][j] = avg;
+                temp[i][j-1] = avg;
 
             }
         }
@@ -176,7 +177,7 @@ public class Flame extends Thread {
             flameEvolve();
 
             try {
-                sleep(0);
+                sleep(5);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Viewer.class.getName()).log(Level.SEVERE, null, ex);
             }
